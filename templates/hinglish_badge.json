@@ -1,0 +1,22 @@
+{
+  "name": "Hinglish Pill Badge",
+  "description": "Orange pill background, white Devanagari text — Clickastro ad style",
+  "style": {
+    "Font": "Kohinoor Devanagari",
+    "Style": "Regular",
+    "Size": 0.08,
+    "element_1": {
+      "type": "text_fill",
+      "color": "#FFFFFF"
+    },
+    "element_5": {
+      "type": "pill_background",
+      "color": "#E8622A",
+      "round": 1.0,
+      "padding_x": 0.1,
+      "padding_y": 0.05,
+      "level": "Text",
+      "behind_text": true
+    }
+  }
+}

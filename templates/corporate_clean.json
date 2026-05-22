@@ -1,0 +1,13 @@
+{
+  "name": "Corporate Clean",
+  "description": "Minimal white text with subtle drop shadow",
+  "style": {
+    "Font": "Open Sans",
+    "Style": "SemiBold",
+    "Size": 0.05,
+    "element_1": {
+      "type": "text_fill",
+      "color": "#FFFFFF"
+    }
+  }
+}

@@ -58,3 +58,34 @@ Each template = JSON file with key params
 - Multi-character layouts (line breaks, alignment)
 - Color picker → RGB conversion helper
 - Animation modifiers (TextScramble, fade-in)
+## Day 2 Discoveries → Day 3+ Plans
+
+### Confirmed production capabilities
+- ✅ Template JSON → Text+ style pipeline
+- ✅ Clean state management (no element leaks)
+- ✅ Multi-language text (Hindi/English)
+- ✅ Multiple shading elements (text + background)
+
+### Day 3 mission
+**UIManager UI** — Phase 1+2 pattern reuse:
+- Template dropdown (lists from templates/ folder)
+- Text input field (multi-line)
+- Apply button
+- Live preview hint
+- Backup/restore buttons
+
+### Templates pipeline
+Current: 3 hardcoded templates (corporate, badge, reel)
+Day 3-4: Add 3-5 more templates
+- Karaoke highlight (yellow text on dark BG)
+- Podcast lower-third (name + title format)
+- News ticker (white text on blue strip)
+- Bollywood title (large bold with shadow)
+- Cooking show (warm tones with outline)
+
+### Future enhancements
+- SRT/VTT subtitle file import
+- Whisper integration for auto-transcription
+- Per-word timing animations
+- Color picker for custom templates
+- Save user-customized templates
