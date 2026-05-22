@@ -1,0 +1,22 @@
+{
+  "name": "Karaoke Highlight",
+  "description": "Bright yellow text on dark navy pill — lyrics video style",
+  "style": {
+    "Font": "Kohinoor Devanagari",
+    "Style": "Bold",
+    "Size": 0.10,
+    "element_1": {
+      "type": "text_fill",
+      "color": "#FFD600"
+    },
+    "element_5": {
+      "type": "pill_background",
+      "color": "#1A237E",
+      "round": 1.0,
+      "padding_x": 0.12,
+      "padding_y": 0.08,
+      "level": "Text",
+      "behind_text": true
+    }
+  }
+}

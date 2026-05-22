@@ -124,3 +124,20 @@ Day 3-4: Add 3-5 more templates
 - Screenshots for marketing
 - Landing page idea (Vercel)
 - Gumroad/Lemon Squeezy pricing
+## After Day 4 — 6 templates ka portfolio
+
+| Template | Use case | Hindi | Background |
+|---|---|---|---|
+| Corporate Clean | Professional/business | ✓ | None |
+| Hinglish Pill Badge | Indian ads/reels | ✓ | Orange pill |
+| Karaoke Highlight | Lyrics videos | ✓ | Navy pill |
+| News Ticker | Breaking news | ✓ | Blue rect (sharp) |
+| Podcast Lower-third | Interviews | ✓ | Gray pill |
+| Reel Pop | Instagram/Shorts | ✓ | Dark pill |
+
+### 4-5 more templates ideas (Day 6-7)
+- Bollywood Title (large bold with shadow)
+- Cooking Show (warm orange outline)
+- Tech Tutorial (blue gradient)
+- Travel Vlog (white outlined, transparent BG)
+- Story Time (cinematic black/white)

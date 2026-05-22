@@ -1,0 +1,22 @@
+{
+  "name": "Podcast Lower-third",
+  "description": "Name + title format for interview/podcast videos",
+  "style": {
+    "Font": "Open Sans",
+    "Style": "SemiBold",
+    "Size": 0.045,
+    "element_1": {
+      "type": "text_fill",
+      "color": "#FFFFFF"
+    },
+    "element_5": {
+      "type": "pill_background",
+      "color": "#212121",
+      "round": 0.15,
+      "padding_x": 0.15,
+      "padding_y": 0.08,
+      "level": "Text",
+      "behind_text": true
+    }
+  }
+}

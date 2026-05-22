@@ -160,3 +160,35 @@ Template Manager + Node Cleanup ki UIManager patterns directly adapted:
 - TextEdit widget handles multi-line natively
 - ComboBox dropdown smooth, no flicker
 - Status label color (StyleSheet) render
+## Day 4 — 3 new templates ✅ COMPLETE
+
+### Templates added
+1. **Karaoke Highlight** (karaoke_highlight.json)
+   - Yellow text (#FFD600), dark navy pill (#1A237E)
+   - Full round corners, larger padding
+   - Lyrics video / music content use case
+   
+2. **News Ticker** (news_ticker.json)
+   - White bold text, sharp blue rectangle (#1565C0)
+   - SHARP corners (round: 0.0) — formal news look
+   - Wide horizontal padding
+   
+3. **Podcast Lower-third** (podcast_lower_third.json)
+   - White SemiBold, dark gray pill (#212121)
+   - Slight rounded corners (0.15)
+   - Interview/podcast use case
+
+### Stats
+- 3 templates → 6 templates (100% increase)
+- Lines added: ~50 (just JSON, no code change!)
+- Time: ~45 min (templates created + tested)
+- Bug count: 0 (smooth as butter)
+
+### Insight: Architecture proven scalable
+Day 2 mein build kiya template system. Day 4 mein 3 new templates **without ANY code changes** — sirf JSON files add. **Yeh proper engineering** hai.
+
+### Day 5 plan
+- Edge cases (no Text+, multiple Text+, invalid template)
+- Better error messages
+- Font fallback system
+- Multi-Text+ node batch apply

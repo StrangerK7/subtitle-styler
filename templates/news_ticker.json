@@ -1,0 +1,22 @@
+{
+  "name": "News Ticker",
+  "description": "Sharp blue rectangle — formal news/breaking-news style",
+  "style": {
+    "Font": "Open Sans",
+    "Style": "Bold",
+    "Size": 0.05,
+    "element_1": {
+      "type": "text_fill",
+      "color": "#FFFFFF"
+    },
+    "element_5": {
+      "type": "pill_background",
+      "color": "#1565C0",
+      "round": 0.0,
+      "padding_x": 0.2,
+      "padding_y": 0.04,
+      "level": "Text",
+      "behind_text": true
+    }
+  }
+}
