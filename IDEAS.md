@@ -89,3 +89,38 @@ Day 3-4: Add 3-5 more templates
 - Per-word timing animations
 - Color picker for custom templates
 - Save user-customized templates
+## Phase 3 v1.0 SHIPPED — what's next
+
+### Achieved (Days 1-3, ~7 hours total)
+- ✅ Foundation (Text+ API mastery)
+- ✅ Template system (3 working templates)
+- ✅ State management (clean slate)
+- ✅ Production UI (clickable in Resolve menu)
+- ✅ Hindi/Devanagari support
+
+### Day 4-5 polish ideas
+1. **More templates** (5+ more):
+   - Karaoke Highlight (yellow on dark)
+   - Podcast Lower-third (name + subtitle)
+   - News Ticker (white on blue strip)
+   - Bollywood Title (large + shadow)
+   - Cooking Show (warm + outline)
+
+2. **UI improvements**:
+   - Preview tooltip on dropdown hover
+   - "Save as new template" button
+   - Color picker for custom colors
+   - Reset/restore from backup button
+
+3. **Power features**:
+   - Multi-text+ node batch apply
+   - SRT/VTT file import (batch subtitle styling)
+   - Karaoke animation timing
+   - Whisper integration (auto-transcribe)
+
+### Day 6-7 marketing prep
+- Demo video (Loom recording)
+- GitHub README polish
+- Screenshots for marketing
+- Landing page idea (Vercel)
+- Gumroad/Lemon Squeezy pricing
