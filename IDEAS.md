@@ -17,3 +17,44 @@
 - Subtitle file (SRT) import
 - AI-generated subtitle text (Whisper integration?)
 - Word timing extraction
+## Day 1 Discoveries → Day 2 Plans
+
+### Confirmed capabilities (ready to build on)
+- ✅ Read any Text+ parameter
+- ✅ Write any Text+ parameter
+- ✅ Devanagari font selection
+- ✅ Hindi text content
+- ✅ Color (4-channel)
+- ✅ Size, Style, Font family
+
+### Templates to build next
+Each template = JSON file with key params
+
+**Template 1: Hinglish Pill Badge** (Clickastro style)
+```json
+{
+  "Styled Text": "(user input)",
+  "Font": "Poppins",
+  "Style": "ExtraBold",
+  "Size": 0.04,
+  "Red 1": 1.0, "Green 1": 1.0, "Blue 1": 1.0,
+  "Shading Element 1 Type": "Background",
+  "Background Color": "(orange #E8622A)"
+}
+```
+
+**Template 2: Hindi Reel Title**
+- Kohinoor Devanagari Bold
+- Large size (0.12)
+- White text with shadow
+
+**Template 3: Corporate Lower-third**
+- Open Sans
+- Smaller (0.05)
+- Subtle shadow
+
+### Technical unknowns to explore Day 2
+- Shading elements (outline, shadow, background pill)
+- Multi-character layouts (line breaks, alignment)
+- Color picker → RGB conversion helper
+- Animation modifiers (TextScramble, fade-in)
