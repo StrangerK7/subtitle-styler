@@ -380,3 +380,65 @@ def disable_all_shading_elements(tool, comp):
                 pass
     
     return disabled
+# ============================================
+# Timeline subtitle access
+# ============================================
+
+def get_timeline_subtitles(resolve):
+    """Resolve timeline ke subtitle clips read karo.
+    
+    Returns: list of dicts with text, start_frame, end_frame, duration
+    """
+    project_manager = resolve.GetProjectManager()
+    project = project_manager.GetCurrentProject()
+    if not project:
+        return []
+    
+    timeline = project.GetCurrentTimeline()
+    if not timeline:
+        return []
+    
+    subtitle_count = timeline.GetTrackCount("subtitle")
+    if subtitle_count == 0:
+        return []
+    
+    subtitles = []
+    
+    for track_idx in range(1, subtitle_count + 1):
+        items = timeline.GetItemListInTrack("subtitle", track_idx)
+        if not items:
+            continue
+        
+        for item in items:
+            try:
+                text = item.GetName() if hasattr(item, "GetName") else ""
+                start = item.GetStart() if hasattr(item, "GetStart") else 0
+                end = item.GetEnd() if hasattr(item, "GetEnd") else 0
+                duration = item.GetDuration() if hasattr(item, "GetDuration") else 0
+                
+                subtitles.append({
+                    "text": text,
+                    "start_frame": start,
+                    "end_frame": end,
+                    "duration": duration,
+                    "track": track_idx,
+                })
+            except Exception as e:
+                print(f"Error reading subtitle: {e}")
+    
+    return subtitles
+
+
+def format_subtitles_text(subtitles):
+    """Subtitle list ko display-friendly text mein convert karo.
+    
+    Returns: multi-line string
+    """
+    if not subtitles:
+        return "(No subtitles found in timeline)"
+    
+    lines = []
+    for i, sub in enumerate(subtitles, 1):
+        lines.append(f"[{i}] {sub['text']}")
+    
+    return "\n".join(lines)

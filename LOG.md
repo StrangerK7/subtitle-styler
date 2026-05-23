@@ -192,3 +192,58 @@ Day 2 mein build kiya template system. Day 4 mein 3 new templates **without ANY 
 - Better error messages
 - Font fallback system
 - Multi-Text+ node batch apply
+## Day 7 — Resolve API Integration ⭐
+
+### MAJOR MILESTONE: Timeline → UI data flow working
+
+### Achievement
+Resolve's "Create Subtitles from Audio" output ko Python se read karke Desi Captions UI mein dikha rahe.
+
+### Test scenario
+- Sample video: Flipkart.mov (English audio)
+- Resolve auto-transcribed 8 subtitle clips
+- Desi Captions read all 8 successfully:
+  1. "Number one, do I"
+  2. "sweat a lot and"
+  3. "feel drained"
+  4. "after"
+  5. "active days?"
+  6. "If yes, your body"
+  7. "is losing"
+  8. "hydrating."
+
+### Files modified
+- **core.py**: 2 new functions
+  - `get_timeline_subtitles(resolve)` — list of dicts with text/start/end/duration
+  - `format_subtitles_text(subtitles)` — display formatter
+- **resolve_scripts/Desi_Captions.py**: 4 changes
+  - Import added: get_timeline_subtitles, format_subtitles_text
+  - Handler added: `on_read_subtitles_clicked`
+  - Transcribe tab UI updated (real button + editable text)
+  - Button wire added
+
+### Bugs encountered + fixed
+- **IndentationError on line 396**: Wire buttons lost indentation during manual edit. Fixed with Tab key in VS Code.
+- **GetClipProperty() returns None**: API limitation. Workaround: GetName() returns subtitle text directly. Acceptable.
+
+### API discoveries
+- `timeline.GetTrackCount("subtitle")` works
+- `timeline.GetItemListInTrack("subtitle", track_idx)` returns clip list
+- Per clip: `.GetName()` = text, `.GetStart()` / `.GetEnd()` / `.GetDuration()` = frames
+- Timing data available for future animation work (Week 3)
+
+### Code stats
+- Lines added: ~80 (core.py + Desi_Captions.py changes)
+- Time: ~2 hours
+- New API methods leveraged: 4 (Resolve timeline API)
+
+### Day 8 plan
+- **Goal**: Auto-trigger transcription from Python
+- Research: Can `timeline.CreateSubtitlesFromAudio()` be called?
+- If yes: Full button → transcribe workflow
+- If no: Hybrid approach with manual menu trigger
+
+### Reflection
+Day 7 = first integration of Resolve Edit API (vs Fusion API used in Days 1-6).
+**Yeh "different layer" hai** — Phase 3 v2.0 ka real architectural growth.
+Tool ab "Fusion only" se "Resolve full timeline" tak access karta.

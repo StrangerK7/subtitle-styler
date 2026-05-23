@@ -22,6 +22,8 @@ from core import (
     template_to_style,
     list_templates,
     disable_all_shading_elements,
+    get_timeline_subtitles,
+    format_subtitles_text,
 )
 
 
@@ -89,6 +91,45 @@ def on_tab_transcribe(ev):
 def on_tab_style(ev):
     switch_tab(1)
     show_message("🎨 Style tab — current focus")
+
+    # ============================================
+# Transcribe tab handlers
+# ============================================
+
+def on_read_subtitles_clicked(ev):
+    """Timeline ke subtitles read karke UI mein dikhao."""
+    global resolve
+    
+    if not resolve:
+        show_message("❌ Resolve nahi mila", "#f44336")
+        return
+    
+    try:
+        subtitles = get_timeline_subtitles(resolve)
+        
+        if not subtitles:
+            show_message("⚠️ Timeline mein koi subtitle nahi", "#ff9800")
+            if "TranscribedTextEdit" in itm:
+                itm["TranscribedTextEdit"].PlainText = (
+                    "Subtitle track nahi mila.\n\n"
+                    "Resolve mein:\n"
+                    "1. Edit page kholo\n"
+                    "2. Timeline pe video clip select karo\n"
+                    "3. Right-click → 'Create Subtitles from Audio'\n"
+                    "4. Language choose karke 'Create' click\n"
+                    "5. Wapas yahan aakar 'Read Subtitles' click"
+                )
+            return
+        
+        # Format display
+        display_text = format_subtitles_text(subtitles)
+        if "TranscribedTextEdit" in itm:
+            itm["TranscribedTextEdit"].PlainText = display_text
+        
+        show_message(f"✅ {len(subtitles)} subtitles loaded", "#4caf50")
+    
+    except Exception as e:
+        show_message(f"❌ Error: {e}", "#f44336")
 
 
 def on_tab_animate(ev):
@@ -223,28 +264,39 @@ def build_ui():
                     "CurrentIndex": 1,  # Default to Style tab
                 }, [
                     # ============ PAGE 0: TRANSCRIBE ============
-                    ui.VGroup([
-                        ui.Label({
-                            "Text": "Auto-Transcribe (Coming Week 1 Day 8)",
-                            "Weight": 0.1,
-                            "StyleSheet": "font-weight: bold; padding: 8px;"
-                        }),
-                        ui.Label({
-                            "Text": "DaVinci Resolve ka built-in 'Create Subtitles from Audio' use karega.\nSupports Hindi, English, Hinglish + 16 more languages.",
-                            "Weight": 0.3,
-                            "StyleSheet": "color: #999; padding: 8px;"
-                        }),
-                        ui.Button({
-                            "ID": "TranscribeBtn",
-                            "Text": "🎤 Auto-Transcribe (placeholder)",
-                            "Weight": 0.1,
-                        }),
-                        ui.TextEdit({
-                            "ID": "TranscribedTextEdit",
-                            "Weight": 0.5,
-                            "PlaceholderText": "Transcribed text will appear here for editing...",
-                        }),
-                    ]),
+ui.VGroup([
+    ui.Label({
+        "Text": "📝 Subtitle Reader (Day 7)",
+        "Weight": 0.06,
+        "StyleSheet": "font-weight: bold; padding: 8px; font-size: 13px;"
+    }),
+    ui.Label({
+        "Text": "Resolve ke 'Create Subtitles from Audio' se generate kiya?\nYahan se read karke edit karo.",
+        "Weight": 0.08,
+        "StyleSheet": "color: #999; padding: 4px;"
+    }),
+    ui.Button({
+        "ID": "ReadSubtitlesBtn",
+        "Text": "📥 Read Subtitles from Timeline",
+        "Weight": 0.08,
+        "StyleSheet": "background-color: #2196f3; color: white; font-weight: bold;"
+    }),
+    ui.Label({
+        "Text": "Transcribed text (editable):",
+        "Weight": 0.04,
+        "StyleSheet": "color: #ccc; padding-top: 8px;"
+    }),
+    ui.TextEdit({
+        "ID": "TranscribedTextEdit",
+        "Weight": 0.6,
+        "PlaceholderText": "Subtitles will appear here after reading from timeline...",
+    }),
+    ui.Label({
+        "Text": "💡 Auto-trigger transcription coming Day 8",
+        "Weight": 0.04,
+        "StyleSheet": "color: #888; font-size: 10px;"
+    }),
+]),
                     
                     # ============ PAGE 1: STYLE (default) ============
                     ui.VGroup([
@@ -333,7 +385,8 @@ def build_ui():
     win.On.TabTranscribeBtn.Clicked = on_tab_transcribe
     win.On.TabStyleBtn.Clicked = on_tab_style
     win.On.TabAnimateBtn.Clicked = on_tab_animate
-    
+    win.On.ReadSubtitlesBtn.Clicked = on_read_subtitles_clicked     # ⭐ NEW LINE
+
     # Wire action buttons
     win.On.ApplyBtn.Clicked = on_apply_clicked
     win.On.CloseBtn.Clicked = on_close_clicked

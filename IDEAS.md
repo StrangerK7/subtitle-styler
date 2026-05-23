@@ -141,3 +141,36 @@ Day 3-4: Add 3-5 more templates
 - Tech Tutorial (blue gradient)
 - Travel Vlog (white outlined, transparent BG)
 - Story Time (cinematic black/white)
+
+## Day 7 Discoveries → Day 8+ Plans
+
+### Confirmed Resolve API capabilities
+- ✅ Subtitle track count + access
+- ✅ Subtitle clips list (per track)
+- ✅ Clip text (GetName)
+- ✅ Frame-accurate timing (Start/End/Duration)
+- ❓ GetClipProperty() — not working, find alternatives
+- ❓ Modify subtitle text (write back?) — Day 8+ explore
+
+### Day 8 explorations needed
+1. **Trigger auto-transcription from Python**:
+   - `timeline.CreateSubtitlesFromAudio()` exists?
+   - Language parameter (Hindi/English/Hinglish)?
+   - Async vs sync behavior?
+2. **Modify subtitle text back to timeline**:
+   - `item.SetName()` or similar?
+   - Round-trip edit (read → user edit → write back)
+3. **Apply Text+ style to subtitle clip**:
+   - Currently styling applies to Fusion Text+ nodes (separate)
+   - Need to bridge: subtitle clip → Text+ render
+   - This is the "Apply to Timeline" main feature
+
+### Week 1 remaining (Day 8-12)
+- Day 8: Auto-transcribe trigger + edit-back to timeline
+- Day 9: Subtitle clip → Text+ render pipeline
+- Day 10: Per-clip style application
+- Day 11: Multi-subtitle batch styling
+- Day 12: Week 1 polish + commit
+
+### Architecture note
+Pipeline becoming:
