@@ -247,3 +247,54 @@ Resolve's "Create Subtitles from Audio" output ko Python se read karke Desi Capt
 Day 7 = first integration of Resolve Edit API (vs Fusion API used in Days 1-6).
 **Yeh "different layer" hai** — Phase 3 v2.0 ka real architectural growth.
 Tool ab "Fusion only" se "Resolve full timeline" tak access karta.
+## Day 8 — Auto-Transcription Trigger ⭐⭐⭐
+
+### MAJOR MILESTONE: Magic moment achieved
+
+### Goal vs Achievement
+- **Planned:** Research CreateSubtitlesFromAudio() — might work
+- **Achieved:** Working from Python, end-to-end pipeline
+
+### Test results
+1. **SetName() test:** Failed (returns False)
+   - Resolve subtitle text not directly editable via API
+   - Workaround: Edit in Resolve UI directly (Day 9-10 explore SRT pipeline)
+   
+2. **CreateSubtitlesFromAudio() test:** ✅ WORKING
+   - No-args call returns True
+   - Subtitle track auto-created
+   - Resolve uses default settings (configured via UI)
+
+### Workflow proven (end-to-end)
+User clicks "🎤 Auto-Transcribe"
+→ Python calls timeline.CreateSubtitlesFromAudio()
+→ Resolve processes audio (~5 sec)
+→ Subtitle clips created on timeline
+→ Python auto-reads new clips
+→ UI displays in text area
+→ Status: "✅ 3 subtitles loaded
+### Files modified
+- **core.py:** Added `trigger_auto_transcribe(resolve)`
+- **resolve_scripts/Desi_Captions.py:**
+  - New handler: `on_auto_transcribe_clicked`
+  - Transcribe tab redesigned (2 buttons: Auto-Transcribe + Read)
+  - Auto-load after transcription
+  - Button wired
+
+### API insights
+- `timeline.CreateSubtitlesFromAudio()` — no arguments accepted
+- Returns: True on success, False on failure
+- Granularity (word/sentence) controlled via Resolve's UI dialog
+- Language selection NOT exposed via Python API
+- User must pre-configure in Resolve's "Create Subtitles" dialog first
+
+### Snap-Captions parity progress
+- ✅ Auto-transcribe (Day 8) — 25% of feature parity
+- ⏳ Custom builder (Week 2)
+- ⏳ Animations (Week 3)
+- ⏳ Polish + integration (Week 4)
+
+### Day 9 plan
+- Research subtitle clip → Text+ render pipeline
+- Goal: Apply selected style to all subtitle clips at once
+- This bridges Transcribe tab → Style tab → final output

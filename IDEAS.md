@@ -174,3 +174,18 @@ Day 3-4: Add 3-5 more templates
 
 ### Architecture note
 Pipeline becoming:
+## Day 8 Insights → Day 9+ Plans
+
+### Snap-Captions feature parity check
+
+| Feature | Snap-Captions | Desi Captions (Day 8) |
+|---|---|---|
+| Auto-transcribe | ✅ Whisper | ✅ Resolve built-in (18 lang) |
+| Multi-language | ✅ | ✅ (via Resolve config) |
+| Edit captions | ✅ In-app | ⚠️ Resolve UI for now |
+| Custom styles | ✅ | ⏳ Week 2 |
+| Animations | ✅ | ⏳ Week 3 |
+| Apply to timeline | ✅ | ⏳ Day 9-10 |
+
+### Day 9 mission
+**Subtitle clip → Text+ render pipeline**

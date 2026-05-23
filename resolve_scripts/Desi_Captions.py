@@ -24,6 +24,7 @@ from core import (
     disable_all_shading_elements,
     get_timeline_subtitles,
     format_subtitles_text,
+    trigger_auto_transcribe,        # ⭐ NEW
 )
 
 
@@ -95,6 +96,29 @@ def on_tab_style(ev):
     # ============================================
 # Transcribe tab handlers
 # ============================================
+
+def on_auto_transcribe_clicked(ev):
+    """Auto-transcribe button — Resolve ka subtitle creation trigger karo."""
+    global resolve
+    
+    if not resolve:
+        show_message("❌ Resolve nahi mila", "#f44336")
+        return
+    
+    show_message("🔄 Transcribing audio... (wait 5-10 sec)", "#2196f3")
+    
+    try:
+        success, msg = trigger_auto_transcribe(resolve)
+        
+        if success:
+            show_message(msg, "#4caf50")
+            # Auto-load the new subtitles
+            on_read_subtitles_clicked(None)
+        else:
+            show_message(f"⚠️ {msg}", "#ff9800")
+    
+    except Exception as e:
+        show_message(f"❌ Error: {e}", "#f44336")
 
 def on_read_subtitles_clicked(ev):
     """Timeline ke subtitles read karke UI mein dikhao."""
@@ -266,33 +290,44 @@ def build_ui():
                     # ============ PAGE 0: TRANSCRIBE ============
 ui.VGroup([
     ui.Label({
-        "Text": "📝 Subtitle Reader (Day 7)",
+        "Text": "📝 Auto-Transcribe + Reader (Day 7+8)",
         "Weight": 0.06,
         "StyleSheet": "font-weight: bold; padding: 8px; font-size: 13px;"
     }),
     ui.Label({
-        "Text": "Resolve ke 'Create Subtitles from Audio' se generate kiya?\nYahan se read karke edit karo.",
+        "Text": "Step 1: Audio se subtitles auto-generate karo\nStep 2: UI mein read karke preview karo",
         "Weight": 0.08,
         "StyleSheet": "color: #999; padding: 4px;"
     }),
+    
+    # Auto-transcribe button (NEW)
+    ui.Button({
+        "ID": "AutoTranscribeBtn",
+        "Text": "🎤 Auto-Transcribe Audio",
+        "Weight": 0.08,
+        "StyleSheet": "background-color: #e6e600; color: black; font-weight: bold;"
+    }),
+    
+    # Read button (existing)
     ui.Button({
         "ID": "ReadSubtitlesBtn",
         "Text": "📥 Read Subtitles from Timeline",
         "Weight": 0.08,
         "StyleSheet": "background-color: #2196f3; color: white; font-weight: bold;"
     }),
+    
     ui.Label({
-        "Text": "Transcribed text (editable):",
+        "Text": "Transcribed text (preview):",
         "Weight": 0.04,
         "StyleSheet": "color: #ccc; padding-top: 8px;"
     }),
     ui.TextEdit({
         "ID": "TranscribedTextEdit",
-        "Weight": 0.6,
-        "PlaceholderText": "Subtitles will appear here after reading from timeline...",
+        "Weight": 0.55,
+        "PlaceholderText": "Click Auto-Transcribe ya Read Subtitles to load...",
     }),
     ui.Label({
-        "Text": "💡 Auto-trigger transcription coming Day 8",
+        "Text": "💡 Edit karna ho to abhi Resolve mein direct karo. Python edit Day 9-10 mein add hoga.",
         "Weight": 0.04,
         "StyleSheet": "color: #888; font-size: 10px;"
     }),
@@ -391,6 +426,8 @@ ui.VGroup([
     win.On.ApplyBtn.Clicked = on_apply_clicked
     win.On.CloseBtn.Clicked = on_close_clicked
     win.On.DesiCaptionsWin.Close = on_close_clicked
+    win.On.AutoTranscribeBtn.Clicked = on_auto_transcribe_clicked   # ⭐ NEW
+    win.On.ReadSubtitlesBtn.Clicked = on_read_subtitles_clicked
     
     # Initial tab style
     update_tab_button_styles()

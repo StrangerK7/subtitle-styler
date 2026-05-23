@@ -442,3 +442,49 @@ def format_subtitles_text(subtitles):
         lines.append(f"[{i}] {sub['text']}")
     
     return "\n".join(lines)
+# ============================================
+# Auto-transcribe trigger
+# ============================================
+
+def trigger_auto_transcribe(resolve):
+    """Resolve ka CreateSubtitlesFromAudio trigger karo.
+    
+    Note: No arguments accepted — Resolve apne default settings use karta.
+    User pehle Resolve UI mein language/granularity set kar sakta.
+    
+    Returns: (success: bool, message: str)
+    """
+    project_manager = resolve.GetProjectManager()
+    project = project_manager.GetCurrentProject()
+    if not project:
+        return False, "Project nahi mila"
+    
+    timeline = project.GetCurrentTimeline()
+    if not timeline:
+        return False, "Timeline nahi mila"
+    
+    # Count before (for comparison)
+    before_count = timeline.GetTrackCount("subtitle")
+    before_clips = 0
+    if before_count > 0:
+        items = timeline.GetItemListInTrack("subtitle", 1)
+        before_clips = len(items) if items else 0
+    
+    # Trigger transcription
+    try:
+        result = timeline.CreateSubtitlesFromAudio()
+        
+        if not result:
+            return False, "Transcription failed — audio track check karo"
+        
+        # Count after
+        after_count = timeline.GetTrackCount("subtitle")
+        after_clips = 0
+        if after_count > 0:
+            items = timeline.GetItemListInTrack("subtitle", 1)
+            after_clips = len(items) if items else 0
+        
+        return True, f"✅ Transcribed: {after_clips} subtitle clips created"
+    
+    except Exception as e:
+        return False, f"Error: {e}"
