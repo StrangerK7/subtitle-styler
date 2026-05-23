@@ -298,3 +298,81 @@ User clicks "🎤 Auto-Transcribe"
 - Research subtitle clip → Text+ render pipeline
 - Goal: Apply selected style to all subtitle clips at once
 - This bridges Transcribe tab → Style tab → final output
+## Day 9 — Plan B Coding ⭐⭐⭐
+
+### MAJOR BREAKTHROUGH: Subtitle → Text+ pipeline PROVEN
+
+### Strategy
+Discovery: Subtitle clips have NO Fusion comp access (Plan A failed).
+Pivot: Use timeline.InsertFusionTitleIntoTimeline("Text+") to create SEPARATE Text+ overlays on V1 track, synchronized with subtitle timings.
+
+### API discoveries (3 sessions)
+
+#### Session 1: Subtitle clip Fusion access — FAILED
+- `subtitle.GetFusionCompCount()` returns 0
+- `subtitle.AddFusionComp()` returns None
+- Conclusion: Subtitle clips don't support Fusion comp directly
+
+#### Session 2: Timeline insert methods — 4 FOUND
+- `timeline.InsertFusionTitleIntoTimeline(title_name)` ⭐ used
+- `timeline.InsertFusionCompositionIntoTimeline`
+- `timeline.InsertFusionGeneratorIntoTimeline`
+- `timeline.InsertTitleIntoTimeline`
+
+#### Session 3: Working title names — 4 valid
+- `"Text+"` ✅ ← used
+- `"Text"` ✅
+- `"Title"` ✅
+- `"Subtitle"` ✅
+- `"Basic Title"` ❌
+
+### Proof of concept achieved
+Test sequence (ONE subtitle):
+
+Read subtitle text: "Number one, do I sweat a lot and feel"
+Insert Text+ on V1 via API
+Access Fusion comp (auto-created inside Text+ item)
+Find Text+ tool (RegID "TextPlus", name "Template")
+SetInput("StyledText", subtitle_text)
+Verify: text matches ✅
+
+
+### Pipeline architecture (validated)
+[Audio]
+↓ CreateSubtitlesFromAudio() — Day 8
+[Subtitle clips on ST1]
+↓ GetItemListInTrack() + GetName() — Day 7
+[Text data in UI]
+↓ InsertFusionTitleIntoTimeline("Text+") — Day 9 ⭐
+[Text+ overlay on V1]
+↓ comp.GetToolList() + tool.SetInput() — Day 9 ⭐
+[Styled subtitle text rendered on screen]
+### Known issues to fix Day 10
+1. **Positioning**: Text+ inserted at PLAYHEAD, not subtitle start
+2. **Duration**: Text+ default 150 frames, must match subtitle duration
+3. **Style**: Default style applied, must use template system from Days 1-5
+
+### Day 10 mission
+- Loop through all subtitles
+- Per subtitle:
+  - Move playhead to subtitle start (or directly set Text+ start frame)
+  - Insert Text+
+  - Set duration = subtitle duration
+  - Apply style template
+- End state: 3 subtitles → 3 styled Text+ overlays on V1
+
+### Files modified
+- **Experiments only** (no production code changes):
+  - `experiments/explore_subtitle_fusion.py` (Plan A failed)
+  - `experiments/explore_timeline_methods.py` (4 methods discovered)
+  - `experiments/test_insert_title.py` (need arg)
+  - `experiments/list_fusion_titles.py` (4 title names found)
+  - `experiments/test_textplus_overlay.py` (PIPELINE PROVEN)
+
+### Snap-Captions parity progress
+- ✅ Auto-transcribe (Day 8) — 25%
+- ✅ Read subtitles (Day 7) — included in above
+- ✅ Text+ insertion + text population (Day 9) — 35% TOTAL
+- ⏳ Position + duration + style (Day 10)
+- ⏳ Custom builder (Week 2)
+- ⏳ Animations (Week 3)

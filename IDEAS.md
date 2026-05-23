@@ -189,3 +189,42 @@ Pipeline becoming:
 
 ### Day 9 mission
 **Subtitle clip → Text+ render pipeline**
+## Day 9 Insights → Day 10 Plan
+
+### Plan B confirmed architecture
+- Separate Text+ overlays on V1 (not embedded in subtitle clips)
+- Loop-based: 1 Text+ per subtitle
+- Style applied per Text+ via existing template system
+
+### Day 10 specific tasks (60-90 min)
+1. **Position control**:
+   - Investigate `text_item.SetStart()` or similar method
+   - Alternative: Move playhead via API before each insert
+   - Goal: Text+ start frame = subtitle start frame
+
+2. **Duration control**:
+   - Investigate `text_item.SetDuration()` 
+   - Alternative: Use right-edit (set end frame)
+   - Goal: Text+ span = subtitle span
+
+3. **Style application**:
+   - Reuse existing `write_text_style()` from core.py
+   - Apply selected template to Text+ tool inside Fusion comp
+   - Validate: pill background, font, color, etc. visible
+
+4. **Loop integration**:
+   - For each subtitle in `get_timeline_subtitles()`:
+     - Insert Text+
+     - Position
+     - Duration
+     - Apply style
+
+### Open questions
+- Does Resolve allow programmatic playhead movement? (`timeline.SetCurrentTimecode`?)
+- Can Text+ items overlap on same track or need separate tracks?
+- Do we need to disable subtitle track when Text+ overlays active?
+
+### Polish ideas (Day 11-12)
+- "Hide subtitle track" toggle (since Text+ replaces it visually)
+- Preview mode: only first subtitle styled (fast test)
+- Undo: delete all Text+ overlays added by tool
